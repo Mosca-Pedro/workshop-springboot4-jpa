@@ -12,75 +12,75 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_order_item")
 public class OrderItem implements Serializable {
-    private static final long serialVersionUID = 1L; 
-	
+    private static final long serialVersionUID = 1L;
+
     @EmbeddedId
-	private OrderItemPK id;
-	
-	private Integer quantity;
-	private Double price;
-	
-	public OrderItem() {
-	}
+    private OrderItemPK id = new OrderItemPK(); 
 
-	public OrderItem(Order order, Product product, Integer quantity, Double price) {
-		super();
-		id.setOrder(order);
-		id.setProduct(product);
-		this.quantity = quantity;
-		this.price = price;
-	}
-	
-	public Order getOrder() {
-		return id.getOrder();
-	}
-	
-	public void setOrder(Order order) {
-		id.setOrder(order);
-	}
-	
-	public Order getProduct() {
-		return getProduct();
-	}
-	
-	public void setProdu(Product product) {
-		id.setProduct(product);
-	}
+    private Integer quantity;
+    private Double price;
+
+    public OrderItem() {
+    }
+
+    public OrderItem(Order order, Product product, Integer quantity, Double price) {
+        id.setOrder(order);
+        id.setProduct(product);
+        this.quantity = quantity;
+        this.price = price;
+    }
 
 
-	public Integer getQuantity() {
-		return quantity;
-	}
+    public Order getOrder() {
+        return id.getOrder();
+    }
 
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
+    public void setOrder(Order order) {
+        id.setOrder(order);
+    }
 
-	public Double getPrice() {
-		return price;
-	}
+    public Product getProduct() {
+        return id.getProduct();
+    }
 
-	public void setPrice(Double price) {
-		this.price = price;
-	}
+    public void setProduct(Product product) {
+        id.setProduct(product);
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		OrderItem other = (OrderItem) obj;
-		return Objects.equals(id, other.id);
-	}
-	
-	
+    public Integer getQuantity() {
+        return quantity;
+    }
 
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+ 
+    public Double getSubTotal() {
+        return price * quantity;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!(obj instanceof OrderItem))
+            return false;
+        OrderItem other = (OrderItem) obj;
+        return Objects.equals(id, other.id);
+    }
 }
